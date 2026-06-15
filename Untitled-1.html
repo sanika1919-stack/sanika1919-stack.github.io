@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; frame-ancestors 'none';">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MacvDrug — Premium Store</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg:      #080808;
+    --card:    #111111;
+    --gold:    #C9980E;
+    --gold-lt: #F0C040;
+    --text:    #e8dcc8;
+    --muted:   #7a6e60;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed; inset: 0; z-index: 0;
+    background:
+      radial-gradient(ellipse 60% 50% at 50% -10%, rgba(140,0,0,0.28) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 30% at 20% 80%, rgba(180,120,0,0.07) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  .wrap { position: relative; z-index: 1; }
+
+  /* ── HEADER ── */
+  header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 22px 48px;
+    border-bottom: 1px solid rgba(201,152,14,0.12);
+    backdrop-filter: blur(12px);
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(8,8,8,0.78);
+  }
+
+  .logo-wrap { display: flex; align-items: center; gap: 14px; }
+
+  .logo-img-small {
+    height: 38px;
+    width: auto;
+    object-fit: contain;
+  }
+
+  .brand-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 21px;
+    font-weight: 600;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    color: var(--gold-lt);
+  }
+
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .header-badge {
+    font-family: 'Playfair Display', serif;
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--muted);
+    border: 1px solid rgba(201,152,14,0.25);
+    padding: 6px 16px;
+    border-radius: 100px;
+  }
+
+  /* ── LANG SWITCHER ── */
+  .lang-switcher {
+    display: flex;
+    gap: 6px;
+    background: rgba(18,9,0,0.4);
+    padding: 4px;
+    border-radius: 100px;
+    border: 1px solid rgba(201,152,14,0.15);
+  }
+
+  .lang-btn {
+    background: transparent;
+    border: none;
+    color: var(--muted);
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 100px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  .lang-btn:hover { color: var(--gold-lt); }
+  .lang-btn.active {
+    background: rgba(201,152,14,0.2);
+    color: var(--gold-lt);
+  }
+
+  /* ── ONLINE DOT (support button) ── */
+  .online-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #2ecc71;
+    flex-shrink: 0;
+    animation: pulse-dot 2.2s ease-in-out infinite;
+    box-shadow: 0 0 0 0 rgba(46,204,113,0.6);
+  }
+
+  @keyframes pulse-dot {
+    0%   { box-shadow: 0 0 0 0 rgba(46,204,113,0.6); }
+    50%  { box-shadow: 0 0 0 5px rgba(46,204,113,0); }
+    100% { box-shadow: 0 0 0 0 rgba(46,204,113,0); }
+  }
+
+  /* ── HERO ── */
+  .hero {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 90px 24px 56px;
+    gap: 22px;
+  }
+
+  .eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.38em;
+    text-transform: uppercase;
+    color: var(--gold);
+    opacity: 0.75;
+  }
+
+  /* ── LOGO SHIMMER ── */
+  .hero-logo-img {
+    width: 240px;
+    height: auto;
+    object-fit: contain;
+    animation: logo-shimmer 9s ease-in-out infinite;
+  }
+
+  @keyframes logo-shimmer {
+    0%   { filter: drop-shadow(0 0 14px rgba(180,120,0,0.3))  drop-shadow(0 4px 12px rgba(0,0,0,0.6)) brightness(0.92) saturate(0.85); }
+    25%  { filter: drop-shadow(0 0 32px rgba(255,210,60,0.75)) drop-shadow(0 4px 16px rgba(0,0,0,0.5)) brightness(1.18) saturate(1.3); }
+    50%  { filter: drop-shadow(0 0 48px rgba(240,192,64,0.9))  drop-shadow(0 0 22px rgba(210,150,0,0.5)) brightness(1.3) saturate(1.5); }
+    75%  { filter: drop-shadow(0 0 28px rgba(255,210,60,0.65)) drop-shadow(0 4px 14px rgba(0,0,0,0.5)) brightness(1.12) saturate(1.2); }
+    100% { filter: drop-shadow(0 0 14px rgba(180,120,0,0.3))  drop-shadow(0 4px 12px rgba(0,0,0,0.6)) brightness(0.92) saturate(0.85); }
+  }
+
+  /* ── H1 SHIMMER ── */
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(46px, 6.5vw, 84px);
+    font-weight: 700;
+    line-height: 1.0;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    background: linear-gradient(
+      100deg,
+      #7a5500 0%,
+      #C9980E 15%,
+      #fff8e7 30%,
+      #F0C040 42%,
+      #ffffff 50%,
+      #F0C040 58%,
+      #fff8e7 68%,
+      #C9980E 82%,
+      #7a5500 100%
+    );
+    background-size: 220% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: text-shimmer 10s linear infinite;
+  }
+
+  @keyframes text-shimmer {
+    0%   { background-position: 200% center; }
+    100% { background-position: -200% center; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-logo-img {
+      animation: none;
+      filter: drop-shadow(0 0 28px rgba(210,150,0,0.45)) drop-shadow(0 4px 12px rgba(0,0,0,0.6));
+    }
+    .hero h1 {
+      animation: none;
+      background: linear-gradient(160deg, #ffffff 0%, #e8dcc8 40%, var(--gold-lt) 70%, var(--gold) 100%);
+      background-size: 100% auto;
+    }
+    .online-dot { animation: none; }
+  }
+
+  .hero-sub {
+    font-size: 15px;
+    color: var(--muted);
+    max-width: 500px;
+    line-height: 1.75;
+    letter-spacing: 0.02em;
+  }
+
+  .divider {
+    width: 80px; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+
+  .section-label {
+    text-align: center;
+    font-size: 11px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--gold);
+    opacity: 0.55;
+    margin-bottom: 28px;
+  }
+
+  /* ── BUTTONS ── */
+  .btn-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 0 24px 80px;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    padding: 13px 24px;
+    border-radius: 100px;
+    text-decoration: none;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: 0.07em;
+    cursor: pointer;
+    border: none;
+    transition: all 0.32s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    position: relative;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  .btn::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.09), transparent);
+    border-radius: inherit;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .btn:hover::after { opacity: 1; }
+
+  .btn-gold {
+    background: linear-gradient(135deg, #7a5500 0%, #C9980E 38%, #F0C040 58%, #C9980E 100%);
+    color: #0c0600;
+    font-weight: 500;
+    box-shadow: 0 0 22px rgba(201,152,14,0.32), 0 2px 8px rgba(0,0,0,0.5);
+  }
+  .btn-gold:hover {
+    box-shadow: 0 0 38px rgba(240,192,64,0.55), 0 4px 18px rgba(0,0,0,0.6);
+    transform: translateY(-2px);
+  }
+
+  .btn-outline {
+    background: rgba(18,9,0,0.65);
+    color: var(--gold-lt);
+    border: 1px solid rgba(201,152,14,0.32);
+    box-shadow: 0 0 10px rgba(201,152,14,0.07), inset 0 1px 0 rgba(255,255,255,0.04);
+    backdrop-filter: blur(8px);
+  }
+  .btn-outline:hover {
+    border-color: rgba(240,192,64,0.65);
+    box-shadow: 0 0 26px rgba(201,152,14,0.22), 0 2px 12px rgba(0,0,0,0.5);
+    transform: translateY(-2px);
+    background: rgba(28,14,0,0.75);
+  }
+
+  .btn:active {
+    transform: translateY(1px);
+    filter: brightness(0.9);
+  }
+
+  .btn-red {
+    background: linear-gradient(135deg, #500000 0%, #8B0000 50%, #9e0000 100%);
+    color: #ffcccc;
+    border: 1px solid rgba(200,0,0,0.38);
+    box-shadow: 0 0 20px rgba(140,0,0,0.3), 0 2px 8px rgba(0,0,0,0.5);
+    font-weight: 500;
+  }
+  .btn-red:hover {
+    box-shadow: 0 0 38px rgba(180,0,0,0.52), 0 4px 16px rgba(0,0,0,0.6);
+    transform: translateY(-2px);
+  }
+  .btn-red:active {
+    transform: translateY(1px);
+    filter: brightness(0.85);
+  }
+
+  /* ── SHARE BUTTON ── */
+  .btn-share {
+    background: rgba(12,12,12,0.7);
+    color: var(--muted);
+    border: 1px solid rgba(201,152,14,0.18);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.03);
+    backdrop-filter: blur(8px);
+  }
+  .btn-share:hover {
+    color: var(--gold-lt);
+    border-color: rgba(201,152,14,0.45);
+    box-shadow: 0 0 18px rgba(201,152,14,0.14);
+    transform: translateY(-2px);
+  }
+
+  .btn-icon { font-size: 15px; line-height: 1; flex-shrink: 0; }
+  .tg-icon { width: 17px; height: 17px; flex-shrink: 0; }
+
+  /* ── CARDS ── */
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    max-width: 920px;
+    margin: 0 auto 80px;
+    padding: 0 24px;
+    background: rgba(201,152,14,0.09);
+    border: 1px solid rgba(201,152,14,0.09);
+    border-radius: 2px;
+  }
+
+  .card {
+    background: var(--card);
+    padding: 34px 26px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    /* scroll-reveal — start invisible */
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .card.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .card:nth-child(2) { transition-delay: 0.12s; }
+  .card:nth-child(3) { transition-delay: 0.24s; }
+
+  .card-icon { font-size: 22px; }
+  .card-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 500;
+    color: #fff;
+    letter-spacing: 0.04em;
+  }
+  .card-text {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.65;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid rgba(201,152,14,0.08);
+    padding: 28px 48px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-brand {
+    font-family: 'Playfair Display', serif;
+    font-size: 17px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+
+  .footer-copy {
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+  }
+
+  /* ── TOAST ── */
+  .toast {
+    position: fixed;
+    bottom: 32px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: rgba(20,14,4,0.92);
+    border: 1px solid rgba(201,152,14,0.35);
+    color: var(--gold-lt);
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: 0.06em;
+    padding: 11px 22px;
+    border-radius: 100px;
+    backdrop-filter: blur(16px);
+    box-shadow: 0 4px 24px rgba(0,0,0,0.5), 0 0 20px rgba(201,152,14,0.1);
+    z-index: 9999;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.28s ease, transform 0.28s ease;
+    white-space: nowrap;
+  }
+
+  .toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(22px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero > * { animation: fadeUp 0.85s ease both; }
+  .hero > *:nth-child(1) { animation-delay: 0.05s; }
+  .hero > *:nth-child(2) { animation-delay: 0.15s; }
+  .hero > *:nth-child(3) { animation-delay: 0.28s; }
+  .hero > *:nth-child(4) { animation-delay: 0.38s; }
+  .hero > *:nth-child(5) { animation-delay: 0.48s; }
+  .hero > *:nth-child(6) { animation-delay: 0.58s; }
+
+  @media (max-width: 768px) {
+    header { padding: 16px 20px; flex-direction: column; gap: 16px; }
+    .header-actions { flex-direction: column-reverse; gap: 12px; }
+    .hero-logo-img { width: 180px; }
+    .cards { grid-template-columns: 1fr; }
+    footer { flex-direction: column; gap: 12px; text-align: center; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="logo-wrap">
+      <img class="logo-img-small" src="image-removebg-preview.png" alt="MacvDrug logo">
+      <div class="brand-name">MacvDrug</div>
+    </div>
+    <div class="header-actions">
+<div class="lang-switcher">
+        <button class="lang-btn" data-lang="ru">RU</button>
+        <button class="lang-btn" data-lang="en">EN</button>
+        <button class="lang-btn" data-lang="pl">PL</button>
+      </div>
+      <div class="header-badge" data-i18n="badge">Визитка</div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="eyebrow">Premium Store</div>
+    <img class="hero-logo-img" src="image-removebg-preview.png" alt="MacvDrug">
+    <h1>MacvDrug</h1>
+    <p class="hero-sub" data-i18n="heroSub">Отдыхай, кайфуй и наслаждайся жизнью — мы предоставляем все возможности для этого!</p>
+    <div class="divider"></div>
+    <div class="section-label" data-i18n="sectionLabel">Выберите направление</div>
+  </section>
+
+  <div class="btn-grid">
+
+    <a href="https://t.me/sir_os_bot" target="_blank" rel="noopener noreferrer" class="btn btn-gold">
+      <svg class="tg-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm4.93 6.686-1.686 7.947c-.127.566-.46.703-.932.437l-2.573-1.896-1.242 1.196c-.137.137-.252.252-.517.252l.185-2.62 4.773-4.31c.208-.185-.045-.287-.323-.102L8.03 14.4 5.49 13.62c-.557-.174-.567-.557.116-.824l8.626-3.325c.464-.168.87.113.698.815z" fill="currentColor"/>
+      </svg>
+      Telegram Bot
+    </a>
+
+    <a href="https://t.me/+88804029516" target="_blank" rel="noopener noreferrer" class="btn btn-outline">
+      <svg class="tg-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm4.93 6.686-1.686 7.947c-.127.566-.46.703-.932.437l-2.573-1.896-1.242 1.196c-.137.137-.252.252-.517.252l.185-2.62 4.773-4.31c.208-.185-.045-.287-.323-.102L8.03 14.4 5.49 13.62c-.557-.174-.567-.557.116-.824l8.626-3.325c.464-.168.87.113.698.815z" fill="currentColor"/>
+      </svg>
+      <span data-i18n="ziomekBot">ziomek' неубиваемый бот</span>
+    </a>
+
+    <a href="https://inpost.pl" target="_blank" rel="noopener noreferrer" class="btn btn-outline">
+      <span class="btn-icon">📦</span> Inpost
+    </a>
+
+    <a href="#" class="btn btn-outline" aria-disabled="true" style="opacity:0.45;pointer-events:none;">
+      <span class="btn-icon">🌐</span> <span data-i18n="website">Web Site</span>
+    </a>
+
+    <a href="https://t.me/sir_os_bot/app" target="_blank" rel="noopener noreferrer" class="btn btn-outline">
+      <svg class="tg-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm4.93 6.686-1.686 7.947c-.127.566-.46.703-.932.437l-2.573-1.896-1.242 1.196c-.137.137-.252.252-.517.252l.185-2.62 4.773-4.31c.208-.185-.045-.287-.323-.102L8.03 14.4 5.49 13.62c-.557-.174-.567-.557.116-.824l8.626-3.325c.464-.168.87.113.698.815z" fill="currentColor"/>
+      </svg>
+      Web App
+    </a>
+
+    <a href="https://t.me/hasl_work/" target="_blank" rel="noopener noreferrer" class="btn btn-outline">
+      <span class="btn-icon">💼</span> <span>Work</span>
+    </a>
+
+    <a href="https://t.me/macv24app" target="_blank" rel="noopener noreferrer" class="btn btn-outline">
+      <span class="online-dot"></span> <span>Support</span>
+    </a>
+
+    <a href="https://t.me/MacvBet_bot" target="_blank" rel="noopener noreferrer" class="btn btn-red">
+      <span class="btn-icon">🎰</span> <span data-i18n="casino">Casino</span>
+    </a>
+
+    <a href="https://t.me/+wNKrtndyLfA2ZDI0" target="_blank" rel="noopener noreferrer" class="btn btn-outline">
+      <span class="btn-icon">💬</span> <span data-i18n="chat">Chat</span>
+    </a>
+
+    <a href="https://telegra.ph/USTANAVLIVAEM-PRILOZHENIE-03-09" target="_blank" rel="noopener noreferrer" class="btn btn-outline">
+      <span class="btn-icon">📱</span> MacvDrug APK
+    </a>
+
+    <button class="btn btn-share" id="share-btn" onclick="shareCard()">
+      <span class="btn-icon">🔗</span> <span data-i18n="share">Поделиться</span>
+    </button>
+
+  </div>
+
+  <div class="cards">
+    <div class="card">
+      <div class="card-icon">🔐</div>
+      <div class="card-title" data-i18n="card1Title">Приватный доступ</div>
+      <div class="card-text" data-i18n="card1Text">Все сервисы работают через защищённые Telegram-каналы и закрытые веб-интерфейсы.</div>
+    </div>
+    <div class="card">
+      <div class="card-icon">⚙️</div>
+      <div class="card-title" data-i18n="card2Title">Автоматизация</div>
+      <div class="card-text" data-i18n="card2Text">Боты и мини-приложения обрабатывают запросы мгновенно, без ожидания операторов.</div>
+    </div>
+    <div class="card">
+      <div class="card-icon">🛡</div>
+      <div class="card-title" data-i18n="card3Title">Поддержка 24/7</div>
+      <div class="card-text" data-i18n="card3Text">Команда поддержки всегда на связи через выделенный канал обращений.</div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-brand">MacvDrug</div>
+    <div class="footer-copy">© 2026 MacvDrug Store · All rights reserved</div>
+  </footer>
+
+</div>
+
+<!-- Toast notification -->
+<div class="toast" id="toast"></div>
+
+<script>
+  /* ── TRANSLATIONS ── */
+  const translations = {
+    ru: {
+      badge: "Визитка",
+      heroSub: "Отдыхай, кайфуй и наслаждайся жизнью — мы предоставляем все возможности для этого!",
+      sectionLabel: "Выберите направление",
+      website: "Web Site",
+      work: "Work",
+      support: "Support",
+      casino: "Casino",
+      chat: "Chat",
+      share: "Поделиться",
+      ziomekBot: "ziomek' неубиваемый бот",
+      card1Title: "Приватный доступ",
+      card1Text: "Все сервисы работают через защищённые Telegram-каналы и закрытые веб-интерфейсы.",
+      card2Title: "Автоматизация",
+      card2Text: "Боты и мини-приложения обрабатывают запросы мгновенно, без ожидания операторов.",
+      card3Title: "Поддержка 24/7",
+      card3Text: "Команда поддержки всегда на связи через выделенный канал обращений.",
+      toastCopied: "Ссылка скопирована ✓",
+      toastShared: "Готово ✓"
+    },
+    en: {
+      badge: "Card",
+      heroSub: "Relax, chill and enjoy life — we provide all the opportunities for this!",
+      sectionLabel: "Choose a direction",
+      website: "Website",
+      work: "Career",
+      support: "Support",
+      casino: "Casino",
+      chat: "Community",
+      share: "Share",
+      ziomekBot: "ziomek' backup bot",
+      card1Title: "Private Access",
+      card1Text: "All services operate through secure Telegram channels and private web interfaces.",
+      card2Title: "Automation",
+      card2Text: "Bots and mini-apps process requests instantly, with zero wait time.",
+      card3Title: "24/7 Support",
+      card3Text: "Our support team is always available via a dedicated channel.",
+      toastCopied: "Link copied ✓",
+      toastShared: "Done ✓"
+    },
+    pl: {
+      badge: "Wizytówka",
+      heroSub: "Odpoczywaj, relaksuj się i ciesz się życiem — zapewniamy ku temu wszystkie możliwości!",
+      sectionLabel: "Wybierz kierunek",
+      website: "Strona Web",
+      work: "Praca",
+      support: "Wsparcie",
+      casino: "Kasyno",
+      chat: "Czat",
+      share: "Udostępnij",
+      ziomekBot: "ziomek' niezniszczalny bot",
+      card1Title: "Prywatny dostęp",
+      card1Text: "Wszystkie usługi działają przez bezpieczne kanały Telegram i zamknięte interfejsy internetowe.",
+      card2Title: "Automatyzacja",
+      card2Text: "Boty i mini-aplikacje przetwarzają zapytania błyskawicznie, bez czekania na operatora.",
+      card3Title: "Wsparcie 24/7",
+      card3Text: "Zespół wsparcia jest zawsze dostępny poprzez dedykowany kanał zgłoszeń.",
+      toastCopied: "Link skopiowany ✓",
+      toastShared: "Gotowe ✓"
+    }
+  };
+
+  let currentLang = 'ru';
+  const langButtons = document.querySelectorAll('.lang-btn');
+  const elementsToTranslate = document.querySelectorAll('[data-i18n]');
+
+  function setLanguage(lang) {
+    if (!translations[lang]) lang = 'ru';
+    currentLang = lang;
+
+    elementsToTranslate.forEach(el => {
+      const key = el.getAttribute('data-i18n');
+      if (translations[lang][key]) el.textContent = translations[lang][key];
+    });
+
+    langButtons.forEach(btn => {
+      btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
+    });
+
+    document.documentElement.lang = lang;
+
+    try { localStorage.setItem('macvdrug_lang', lang); }
+    catch (e) { console.warn("Storage denied:", e); }
+  }
+
+  langButtons.forEach(btn => {
+    btn.addEventListener('click', () => setLanguage(btn.getAttribute('data-lang')));
+  });
+
+  /* ── AUTO-DETECT LANGUAGE ── */
+  function detectLanguage() {
+    try {
+      const saved = localStorage.getItem('macvdrug_lang');
+      if (saved && translations[saved]) return saved;
+    } catch (e) {}
+
+    const nav = (navigator.language || navigator.userLanguage || 'ru').toLowerCase();
+    if (nav.startsWith('pl')) return 'pl';
+    if (nav.startsWith('en')) return 'en';
+    return 'ru';
+  }
+
+  setLanguage(detectLanguage());
+
+  /* ── TOAST ── */
+  let toastTimer = null;
+  function showToast(msg) {
+    const toast = document.getElementById('toast');
+    toast.textContent = msg;
+    toast.classList.add('show');
+    if (toastTimer) clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toast.classList.remove('show'), 2400);
+  }
+
+  /* ── SHARE ── */
+  function shareCard() {
+    const url = window.location.href;
+    const t = translations[currentLang];
+
+    if (navigator.share) {
+      navigator.share({ title: 'MacvDrug', url })
+        .then(() => showToast(t.toastShared))
+        .catch(() => {});
+    } else {
+      navigator.clipboard.writeText(url)
+        .then(() => showToast(t.toastCopied))
+        .catch(() => showToast(t.toastCopied));
+    }
+  }
+
+  /* ── SCROLL REVEAL (cards) ── */
+  const cards = document.querySelectorAll('.card');
+
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+
+    cards.forEach(card => observer.observe(card));
+  } else {
+    // Fallback для старых браузеров
+    cards.forEach(card => card.classList.add('is-visible'));
+  }
+</script>
+</body>
+</html>
